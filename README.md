@@ -12,4 +12,4 @@ Use Cloudflare API to update DNS record.
 
 2. Change Settings in the top of the script;
 
-3. Run it every minutes;
+3. Run it via cron(Linux) or Task Scheduler(Windows)
