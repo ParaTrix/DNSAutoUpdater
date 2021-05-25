@@ -10,7 +10,7 @@ DNSRecordName = 'go.example.com'
 
 # Get IP Address
 myipReturn = requests.get('http://myip.ipip.net/')
-ip = myipReturn.text[6:20]
+ip = myipReturn.text[6:21]
 
 # DEBUG Space detector
 # print(ip + 'a')
