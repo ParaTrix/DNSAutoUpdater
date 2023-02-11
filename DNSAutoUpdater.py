@@ -1,25 +1,30 @@
 # CloudFlare API Gateway https://api.cloudflare.com/client/v4/
 # IP returns from http://myip.ipip.net/
+# Don't forget to run 'pip install requests' if you just installed python
 import requests
 import json
 
 # Global Settings
-apiToken = 'fD_*************************'
+apiToken = '*'
 targetDomain = 'example.com'
-DNSRecordName = 'go.example.com'
+ARecord = 'go.example.com'
 
 # Get IP Address
 myipReturn = requests.get('http://myip.ipip.net/')
-ip = myipReturn.text[6:21]
-
-# DEBUG Space detector
-# print(ip + 'a')
+myipReturn = myipReturn.text[6:21]
+ip=""
+for x in myipReturn:
+    if x != " ":
+        ip+=x
+    else:
+        break
+print(ip)
 
 # load Zones Info
 zonesRaw = requests.get('https://api.cloudflare.com/client/v4/zones?name='+targetDomain, headers={'Authorization':'Bearer '+apiToken})
 zonesID = zonesRaw.json()['result'][0]['id']
 
-DNSRecordRaw = requests.get('https://api.cloudflare.com/client/v4/zones/'+zonesID+'/dns_records?name='+ DNSRecordName, headers={'Authorization':'Bearer '+apiToken})
+DNSRecordRaw = requests.get('https://api.cloudflare.com/client/v4/zones/'+zonesID+'/dns_records?name='+ ARecord, headers={'Authorization':'Bearer '+apiToken})
 recordID = DNSRecordRaw.json()['result'][0]['id']
 recordType = DNSRecordRaw.json()['result'][0]['type']
 recordName = DNSRecordRaw.json()['result'][0]['name']
