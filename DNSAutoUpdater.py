@@ -1,6 +1,6 @@
 # CloudFlare API Gateway https://api.cloudflare.com/client/v4/
-# IP returns from http://myip.ipip.net/
-# Don't forget to run 'pip install requests' if you just installed python
+# IP returns from http://ifconfig.me/
+# Don't forget to run 'pip install requests' if you haven't install it
 import requests
 import json
 
@@ -10,15 +10,8 @@ targetDomain = 'example.com'
 ARecord = 'go.example.com'
 
 # Get IP Address
-myipReturn = requests.get('http://myip.ipip.net/')
-myipReturn = myipReturn.text[6:21]
-ip=""
-for x in myipReturn:
-    if x != " ":
-        ip+=x
-    else:
-        break
-print(ip)
+myipReturn = requests.get('http://ifconfig.me/')
+ip = myipReturn.text
 
 # load Zones Info
 zonesRaw = requests.get('https://api.cloudflare.com/client/v4/zones?name='+targetDomain, headers={'Authorization':'Bearer '+apiToken})
